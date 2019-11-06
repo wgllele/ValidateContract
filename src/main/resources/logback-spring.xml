@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<include resource="org/springframework/boot/logging/logback/base.xml"/>
+	<contextName>ValidateContract</contextName>
+	<!-- appid -->
+	<property name="LOG_PATH" value="/springbootproject/logs"></property>
+	<property name="APP_ID" value="ValidateContract" />
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} %caller{1} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+		</filter>
+		<file>${LOG_PATH}/${APP_ID}/access.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${APP_ID}/access.log.%d{yyyy-MM-dd}.zip</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} %caller{1} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_DEBUG"	class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${LOG_PATH}/${APP_ID}/access_debug.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${APP_ID}/access_debug.log.%d{yyyy-MM-dd}.zip
+			</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} %caller{1} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE_INFO"	class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${LOG_PATH}/${APP_ID}/access_info.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${APP_ID}/access_info.log.%d{yyyy-MM-dd}.zip
+			</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} %caller{1} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="FILE_WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${LOG_PATH}/${APP_ID}/access_warn.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${APP_ID}/access_warn.log.%d{yyyy-MM-dd}.zip</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} %caller{1} - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<appender name="FILE_ERROR"	class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${LOG_PATH}/${APP_ID}/access_error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${APP_ID}/access_error.log.%d{yyyy-MM-dd}.zip</fileNamePattern>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %contextName [%thread] %-5level %logger{36} %caller{1} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ASYNC_LOG" class="ch.qos.logback.classic.AsyncAppender">
+		<!-- No logs are lost. By default, if 80% of the queue is full, logs at TRACT, DEBUG, INFO levels are discarded. -->
+		<discardingThreshold>0</discardingThreshold>
+		<!-- Change the default queue depth, which affects performance. The default value is 256 -->
+		<queueSize>512</queueSize>
+		<appender-ref ref="FILE_LOG" />
+	</appender>
+	<appender name="ASYNC_LOG" class="ch.qos.logback.classic.AsyncAppender">
+		<discardingThreshold>0</discardingThreshold>
+
+		<queueSize>512</queueSize>
+		<appender-ref ref="FILE_LOG" />
+	</appender>
+	<appender name="ASYNC_LOG_DEBUG" class="ch.qos.logback.classic.AsyncAppender">
+		 
+		<discardingThreshold>0</discardingThreshold>
+		 
+		<queueSize>512</queueSize>
+		<appender-ref ref="FILE_DEBUG" />
+	</appender>
+	<appender name="ASYNC_LOG_INFO" class="ch.qos.logback.classic.AsyncAppender">
+		 
+		<discardingThreshold>0</discardingThreshold>
+	 
+		<queueSize>512</queueSize>
+		<appender-ref ref="FILE_INFO" />
+	</appender>
+	<appender name="ASYNC_LOG_WARN" class="ch.qos.logback.classic.AsyncAppender">
+	
+		<discardingThreshold>0</discardingThreshold>
+
+		<queueSize>512</queueSize>
+		<appender-ref ref="FILE_WARN" />
+	</appender>
+	<appender name="ASYNC_LOG_ERROR" class="ch.qos.logback.classic.AsyncAppender">
+
+		<discardingThreshold>0</discardingThreshold>
+	
+		<queueSize>512</queueSize>
+		<appender-ref ref="FILE_ERROR" />
+	</appender>
+	<root level="WARN">
+		<!-- appender referenced after it is defined -->
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ASYNC_LOG" />
+		<appender-ref ref="ASYNC_LOG_DEBUG" />
+		<appender-ref ref="ASYNC_LOG_INFO" />
+		<appender-ref ref="ASYNC_LOG_WARN" />
+		<appender-ref ref="ASYNC_LOG_ERROR" />
+	</root>
+	<logger name="io.hpb.web3" level="DEBUG" additivity="false">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ASYNC_LOG" />
+		<appender-ref ref="ASYNC_LOG_DEBUG" />
+		<appender-ref ref="ASYNC_LOG_INFO" />
+		<appender-ref ref="ASYNC_LOG_WARN" />
+		<appender-ref ref="ASYNC_LOG_ERROR" />
+	</logger>
+	<logger name="io.hpb.contract" level="DEBUG" additivity="false">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ASYNC_LOG" />
+		<appender-ref ref="ASYNC_LOG_DEBUG" />
+		<appender-ref ref="ASYNC_LOG_INFO" />
+		<appender-ref ref="ASYNC_LOG_WARN" />
+		<appender-ref ref="ASYNC_LOG_ERROR" />
+	</logger>
+	<logger name="org.apache.http.wire" level="warn" additivity="false">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="ASYNC_LOG" />
+		<appender-ref ref="ASYNC_LOG_DEBUG" />
+		<appender-ref ref="ASYNC_LOG_INFO" />
+		<appender-ref ref="ASYNC_LOG_WARN" />
+		<appender-ref ref="ASYNC_LOG_ERROR" />
+	</logger>
+</configuration>
